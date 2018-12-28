@@ -1,0 +1,23 @@
+syntax = "proto3";
+package proto;
+
+import "google/api/annotations.proto";
+
+message URL {
+    string url = 1;
+    string hash = 2;
+}
+
+service TurlService {
+    rpc NewURL(URL) returns (URL) {
+        option (google.api.http) = {
+            post: "/v1/turl"
+            body: "*"
+        };
+    }
+    rpc GetURL(URL) returns (URL) {
+        option (google.api.http) = {
+            get: "/v1/turl/{hash}"
+        };
+    }
+}
