@@ -8,6 +8,8 @@ go-get: proto-gen
 	go get -u github.com/golang/protobuf/protoc-gen-go
 	go get -u google.golang.org/grpc
 	go get -u github.com/boltdb/bolt
+	go get -u github.com/stretchr/testify
+	go get -u github.com/rs/zerolog
 
 proto-gen:
 	rm -rf proto
