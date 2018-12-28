@@ -51,9 +51,7 @@ func (s turlServer) StartHTTP(httpPort int) error {
 }
 
 func (s turlServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	s.logger.Info("Path = %s", r.URL.Path)
 	urlObj := proto.URL{Hash: r.URL.Path[1:]}
-	s.logger.Info("urlObj: %+v", urlObj)
 	url, err := s.db.Get(urlObj)
 	if err != nil && url.Url == "" {
 		w.Write([]byte("Error"))
