@@ -3,13 +3,5 @@
 rm -rf tmp
 mkdir tmp
 cd tmp
-git clone https://github.com/protocolbuffers/protobuf
-cd protobuf
-./autogen.sh
-./configure
-make
-make check
-sudo make install
-cd ../..
-rm -rf tmp
-sudo ldconfig
+wget -O protobuf.zip https://github.com/protocolbuffers/protobuf/releases/download/v3.6.1/protoc-3.6.1-linux-x86_64.zip
+unzip -d /usr/local protobuf.zip 

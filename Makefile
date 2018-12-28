@@ -2,7 +2,7 @@
 install-pb:
 	./install-pb.sh
 
-go-get: proto-gen
+go-get:
 	go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 	go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 	go get -u github.com/golang/protobuf/protoc-gen-go
@@ -26,9 +26,12 @@ proto-gen:
   		turl.proto
 
 build: go-get
-	go build -o turl ./...
+	go build -o turl main.go
+	cp turl /go/bin
 
 run: go-get
 	go run main.go
 
-.PHONY: install-pb proto-gen build run
+all: install-pb go-get proto-gen build
+
+.PHONY: install-pb proto-gen build run all
