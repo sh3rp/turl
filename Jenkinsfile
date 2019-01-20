@@ -13,7 +13,6 @@ node {
 	    sh 'env GO111MODULE=on go mod download'
             
             stage 'Test'
-            sh 'go vet'
             sh 'go test -cover'
             
             stage 'Build'
