@@ -10,28 +10,32 @@ go-get:
 	go get -u github.com/boltdb/bolt
 	go get -u github.com/stretchr/testify
 	go get -u github.com/rs/zerolog
+	rm -rf $(PWD)/grpc-gateway
+	git clone https://github.com/grpc-ecosystem/grpc-gateway $(PWD)/grpc-gateway
 
 proto-gen:
-	rm -rf proto
+	rm -rf proto 
 	mkdir proto
 	protoc -I/usr/local/include -I. \
   		-I$(GOPATH)/src \
-  		-I$(GOPATH)/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+  		-I$(PWD)/grpc-gateway/third_party/googleapis \
   		--go_out=plugins=grpc:proto \
   		turl.proto
 	protoc -I/usr/local/include -I. \
   		-I$(GOPATH)/src \
-  		-I$(GOPATH)/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+  		-I$(PWD)/grpc-gateway/third_party/googleapis \
   		--grpc-gateway_out=logtostderr=true:proto \
   		turl.proto
 
 build: go-get
 	go build -o turl main.go
-	cp turl /go/bin
+	rm -rf target
+	mkdir target
+	mv turl target
 
 run: go-get
 	go run main.go
 
-all: install-pb go-get proto-gen build
+all: go-get proto-gen build
 
 .PHONY: install-pb proto-gen build run all
