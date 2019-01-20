@@ -10,6 +10,7 @@ node {
         
             stage 'preTest'
             sh 'go version'
+	    sh 'go mod download'
             
             stage 'Test'
             sh 'go vet'
