@@ -1,7 +1,7 @@
 node {
     def root = tool name: 'Go 1.11', type: 'go'
     ws("${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}/github.com/sh3rp/turl") {
-        withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+        withEnv(["GOROOT=${root}","GOPATH=${root}" "PATH+GO=${root}/bin"]) {
             env.PATH="${GOPATH}/bin:$PATH"
             
             stage 'Checkout'
@@ -10,14 +10,14 @@ node {
         
             stage 'preTest'
             sh 'go version'
-	    sh 'go mod download'
+	    sh 'env GO111MODULE=on go mod download'
             
             stage 'Test'
             sh 'go vet'
             sh 'go test -cover'
             
             stage 'Build'
-            sh 'go build .'
+            sh 'env GO111MODULE=on go build .'
             
             stage 'Deploy'
             // Do nothing.
