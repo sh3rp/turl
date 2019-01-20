@@ -1,7 +1,7 @@
 node {
     def root = tool name: 'Go 1.11', type: 'go'
     ws("${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}/github.com/sh3rp/turl") {
-        withEnv(["GOROOT=${root}","GOPATH=${root}" "PATH+GO=${root}/bin"]) {
+        withEnv(["GOROOT=${root}",  "GOPATH=${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}/",  "PATH+GO=${root}/bin"]) {
             env.PATH="${GOPATH}/bin:$PATH"
             
             stage 'Checkout'
