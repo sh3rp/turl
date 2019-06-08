@@ -10,7 +10,7 @@ if [ ! -f "$PROTOCBIN/protoc" ]; then
     mkdir tmp
     cd tmp
     wget -O protobuf.zip https://github.com/protocolbuffers/protobuf/releases/download/v3.6.1/protoc-3.6.1-linux-x86_64.zip
-    unzip -d $PROTOCDIR protobuf.zip 
+    unzip protobuf.zip -d $PROTOCROOT
 fi
 
 go get -u github.com/golang/protobuf/protoc-gen-go

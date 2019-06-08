@@ -10,15 +10,13 @@ go-get:
 	@git clone https://github.com/grpc-ecosystem/grpc-gateway $(PWD)/tmp/grpc-gateway
 
 proto-gen:
-	@rm -rf proto 
-	@mkdir proto
-	@protoc -I. \
-		-Itmp/protobuf/include \
+	@protoc -I$(PWD)/proto \
+		-I$(PWD)/tmp/protobuf/include \
   		-I$(PWD)/tmp/grpc-gateway/third_party/googleapis \
   		--go_out=plugins=grpc:proto \
   		turl.proto
-	@protoc -I. \
-		-Itmp/protobuf/include \
+	@protoc -I$(PWD)/proto \
+		-I$(PWD)/tmp/protobuf/include \
   		-I$(PWD)/tmp/grpc-gateway/third_party/googleapis \
   		--grpc-gateway_out=logtostderr=true:proto \
   		turl.proto
@@ -31,6 +29,9 @@ build: go-get
 
 run: go-get
 	@go run main.go
+
+clean:
+	@rm -rf tmp target
 
 docker-build: build
 	@docker build . -t turl:latest
