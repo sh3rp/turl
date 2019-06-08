@@ -1,4 +1,4 @@
-FROM golang:1.11.4-stretch
+FROM alpine
 
 EXPOSE 8080
 EXPOSE 9090
